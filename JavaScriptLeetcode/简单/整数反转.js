@@ -2,7 +2,7 @@
  * @param {number} x
  * @return {number}
  */
-var x = 1230;
+var x = 456;
 var INT_MAX = Math.pow(2, 31) - 1;
 var INT_MIN = Math.pow(-2, 31);
 var reverse = function (x) {

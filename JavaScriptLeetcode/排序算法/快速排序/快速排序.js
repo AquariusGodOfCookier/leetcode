@@ -17,15 +17,11 @@ var _quickSort = function (num, left, right) {
             low++;
         }
         [num[base],num[high],num[low]] = [num[high],num[low],num[base]];
-        // let temp =num[base];
-        // num[base] = num[high];
-        // num[high] = num[low];
-        // num[low] = temp;
         base = low;
     }
     _quickSort(num,left,base-1);
     _quickSort(num,base+1,right);
     return num;
 }
-var nums = [2,4,5,1,3,0,10,8,6,2,1];
+var nums =  [5, 4, 7, 1, 9, 35, 67, 2, 88, 1];
 console.log(quickSort(nums));
