@@ -6,17 +6,50 @@
  * @param {number} k
  * @return {number[]}
  */
-// 不排序
+// 排序
 var getLeastNumbers = function(arr, k) {
-    let list = []
-    for(let i=0;i<k;i++){
-        list.push(arr[i])
-    }
-    for(let i=k;i<arr.length;i++){
-        // 判断list数组中还有没有比arr[i]值大的，有就替换
-        
-    }
+    arr.sort((a,b)=>{
+        return a-b;
+    })
+    return arr.slice(0,k)
 };
-var arr = [3,2,1];
-var k = 2;
-console.log(getLeastNumbers(arr,k));
+
+// 快排改良
+
+var getLeastNumbers = function(arr,k){
+    let len = arr.length;
+    if(!len || !k){
+        return []
+    }
+    let right = len-1;
+    let left = 0;
+    let index = _quickSort(arr,left,right);
+    while(index!=k-1){
+        if(index>k-1){
+            index = _quickSort(arr,left,index-1);
+        }else{
+            index = _quickSort(arr,index+1,right)
+        }
+    }
+    return arr.slice(0,index+1)
+    
+}
+var _quickSort = function(arr,low,high){
+    let base = arr[low];
+    while(low<high){
+        while(low<high && arr[high]>=base){
+            high--
+        }
+        arr[low] = arr[high]
+        while(low<high && arr[low]<base){
+            low++;
+        }
+        arr[high] = arr[low]
+    }
+    arr[low] = base;
+    return low;
+}
+
+var arr = [0,1,2,1];
+var k = 1;
+console.log(quickLearstNumbers(arr,k));
