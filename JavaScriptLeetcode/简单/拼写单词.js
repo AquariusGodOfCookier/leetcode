@@ -18,36 +18,34 @@
  * @return {number}
  */
 var countCharacters = function (words, chars) {
-    let obj = {};
-    let cs = chars.split('');
-    cs.forEach(item => {
-        if (obj.hasOwnProperty(item)) {
-            obj[item]++;
-        } else {
-            obj[item] = 1;
+    let map = new Map();
+    for(let i=0;i<chars.length;i++){
+        if(map.has(chars[i])){
+            map.set(chars[i],map.get(chars[i])+1)
+        }else{
+            map.set(chars[i],1)
         }
-    });
-    let arr = 0;
-    words.forEach(v => {
-        let newObj = JSON.parse(JSON.stringify(obj));
-        let index = 0;
-        let vList = v.split('');
-        let isCanCombination = true;
-        while (index < vList.length) {
-            let target = vList[index];
-            if (newObj[target] && newObj[target] > 0) {
-                newObj[target]--;
-            } else {
-                isCanCombination = false;
+    }
+    let count = 0;
+    words.forEach(item=>{
+        let isSpell = true;
+        let newMap = new Map(map);
+        for(let j=0;j<item.length;j++){
+            if(newMap.has(item[j]) && newMap.get(item[j])>0){
+                newMap.set(item[j],newMap.get(item[j])-1)
+            }else{
+                isSpell = false;
+                return;
             }
-            index++;
         }
-        if (isCanCombination) {
-            arr += v.length;
+        if(isSpell){
+            count+=item.length;
+        }else{
+            count += 0;
         }
     })
-    return arr;
+    return count
 };
-var words = ["hello", "world", "leetcode"];
-var chars = 'welldonehoneyr';
+var words = ["cat","bt","hat","tree"];
+var chars = 'atach';
 console.log(countCharacters(words, chars));
