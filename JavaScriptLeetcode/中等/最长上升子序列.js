@@ -29,5 +29,5 @@ var lengthOfLIS = function(nums) {
     })
     return newNums[0]
 };
-var nums = [10,9,2,5,3,7,101,18];
+var nums = [2,1,3,2,5];
 console.log(lengthOfLIS(nums))

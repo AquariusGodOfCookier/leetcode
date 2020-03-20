@@ -20,6 +20,9 @@ var canPermutePalindrome = function(s) {
         }
     }
     let count = 0;
+    for(let k in map){
+        console.log(k)
+    }
     for(let [key,value] of map){
         if(value%2!=0){
             count++
