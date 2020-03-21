@@ -13,7 +13,9 @@ var uniqueMorseRepresentations = function(words) {
     let set = new Set()
     words.forEach(item=>{
         let str = ''
+        console.log(item)
         for(let i=0;i<item.length;i++){
+            console.log(item[i].charCodeAt()-'a'.charCodeAt())
             str += morseList[item[i].charCodeAt()-'a'.charCodeAt()]
         }
        set.add(str)
