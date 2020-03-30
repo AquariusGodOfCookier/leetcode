@@ -1,134 +1,83 @@
+
+// 实现 strStr() 函数。
+
+// 给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
+
+// sunday 算法
 /**
  * @param {string} haystack
  * @param {string} needle
  * @return {number}
  */
-var haystack = 'mississippi';
-var needle = 'issip';
-// 会超时，暴力解法在解大数据的时候会超时
-// var strStr = function(haystack, needle) {
-//     if(needle==''){
-//         return 0;
-//     }
-//     let str = '';
-//     let index = 0;
-//     for(let i=0;i<haystack.length;i++){
-//         while(haystack[i+index]==needle[index]){
-//             str += haystack[i+index];
-//             index++;
-//             console.log(i,str)
-//             if(str==needle){
-//                 return i;
-//             }
-//         }
-//         str = '';
-//         index = 0;
-//     }
-//     return -1;
-// };
-
-// kmp算法
-// var strStr = function(haystack, needle) {
-//     if(needle==''){
-//         return 0;
-//     }
-// };
-var strStr = function(haystack, needle){
-    if (needle==="") return 0
-    for(var i=0;i<haystack.length;i++){
-        if(haystack[i]===needle[0]){
-            var flag = true;
-            for (var j=1;j<needle.length;j++){
-                if (haystack[i+j]!=needle[j]){
-                    flag = false
-                    break;
-                }
-            }
-            if (flag) return i
-        }
+var strStr = function(haystack, needle) {
+    if(needle==''){
+        return 0;
     }
-    return -1
-};
-
-function kmpGetStrPartMatchValue(str) {
-    var prefix = [];
-    var suffix = [];
-    var partMatch = [];
-    for (var i = 0, j = str.length; i < j; i++) {
-        var newStr = str.substring(0, i + 1);
-        console.log(newStr)
-        if (newStr.length == 1) {
-            partMatch[i] = 0;
-        } else {
-            for (var k = 0; k < i; k++) {
-                //取前缀
-                prefix[k] = newStr.slice(0, k + 1);
-                suffix[k] = newStr.slice(-k - 1);
-                if (prefix[k] == suffix[k]) {
-                    partMatch[i] = prefix[k].length;
-                }
-            }
-            if (!partMatch[i]) {
-                partMatch[i] = 0;
-            }
-        }
-    }
-    return partMatch;
-}
-
-
-
-function KMP(sourceStr, searchStr) {
-    //生成匹配表
-    var part = kmpGetStrPartMatchValue(searchStr);
-    var sourceLength = sourceStr.length;
-    var searchLength = searchStr.length;
-    var result;
-    var i = 0;
-    var j = 0;
-
-    for (; i < sourceStr.length; i++) { //最外层循环，主串
-
-        //子循环
-        for (var j = 0; j < searchLength; j++) {
-            //如果与主串匹配
-            if (searchStr.charAt(j) == sourceStr.charAt(i)) {
-                //如果是匹配完成
-                if (j == searchLength - 1) {
-                    result = i - j;
-                    break;
-                } else {
-                    //如果匹配到了，就继续循环，i++是用来增加主串的下标位
-                    i++;
-                }
-            } else {
-                //在子串的匹配中i是被叠加了
-                if (j > 1 && part[j - 1] > 0) {
-                    i += (i - j - part[j - 1]);
-                } else {
-                    //移动一位
-                    i = (i - j)
-                }
-                break;
-            }
-        }
-
-        if (result || result == 0) {
-            break;
-        }
-    }
-
-
-    if (result || result == 0) {
-        return result
-    } else {
+    if(haystack.length<needle.length){
         return -1;
     }
-}
+    // 建立偏移表
+    let deviation = new Map();
+    for(let i=0;i<needle.length;i++){
+        if(!deviation.has(needle)){
+            deviation.set(needle[i],needle.length - needle.lastIndexOf(needle[i]))
+        }
+    }
+    let index = 0;
+    while(index+needle.length <= haystack.length){
+        str_cut = haystack.substring(index,index+needle.length);
+        if(str_cut==needle){
+            return index;
+        }else{
+            if(index+needle.length>=haystack.length){
+                return -1;
+            }else{
+                cur_c = haystack[index+needle.length];
+                if(deviation.has(cur_c)){
+                    index += deviation.get(cur_c)
+                }else{
+                    index += needle.length+1
+                }
+            }
+        }
+    }
+    return index+needle.length>=haystack.length?-1:index
+};
 
-var s = "BBC ABCDAB ABCDABCDABDE";
-var t = "ABCDABD";
+// 解题思路：
+// 相似的查找算法有 KMP，BM，Horspool，挑了一个在实际情况中效果较好且理解简单的算法，即 Sunday 算法。
+
+// 一、Sunday 匹配机制
+// 匹配机制非常容易理解：
+
+// 目标字符串String
+
+// 模式串 Pattern
+
+// 当前查询索引 idx （初始为 00）
+
+// 待匹配字符串 str_cut : String [ idx : idx + len(Pattern) ]
+
+// 每次匹配都会从 目标字符串中 提取 待匹配字符串与 模式串 进行匹配：
+
+// 若匹配，则返回当前 idx
+
+// 不匹配，则查看 待匹配字符串 的后一位字符 c：
+
+// 若c存在于Pattern中，则 idx = idx + 偏移表[c]
+
+// 否则，idx = idx + len(pattern)
+
+// Repeat Loop 直到 idx + len(pattern) > len(String)
+
+// 二、偏移表
+// 偏移表的作用是存储每一个在 模式串 中出现的字符，在 模式串 中出现的最右位置到尾部的距离 +1+1，例如 aab：
+
+// a 的偏移位就是 len(pattern)-1 = 2
+// b 的偏移位就是 len(pattern)-2 = 1
+// 其他的均为 len(pattern)+1 = 4
 
 
-console.log(KMP(s,t))
-// console.log(strStr(haystack, needle));
+var haystack = "mississippi"
+var needle = "pi"
+console.log(strStr(haystack,needle));

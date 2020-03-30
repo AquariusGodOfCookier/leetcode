@@ -6,13 +6,18 @@
  * @param {string} s
  * @return {number}
  */
+// var countSegments = function(s) {
+//     let count = s[0]==' ' || s[0]==undefined?0:1;
+//     for(let i=1;i<s.length;i++){
+//         if(s[i]!=' ' && s[i-1] == ' '){
+//             count += 1;
+//         }
+//     }
+//     return count
+// };
 var countSegments = function(s) {
-    let count = s[0]==' ' || s[0]==undefined?0:1;
-    for(let i=1;i<s.length;i++){
-        if(s[i]!=' ' && s[i-1] == ' '){
-            count += 1;
-        }
-    }
-    return count
+   console.log(s.trim())
+   console.log(s.trim().length)
 };
+var s = '     '
 console.log(countSegments(s))

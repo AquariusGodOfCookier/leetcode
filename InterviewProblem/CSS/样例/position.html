@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="relative"></div>
+    <div class="absolute-1">
+        <div class="absolute-2">
+            <div class="absolute-3"></div>
+        </div>
+    </div>
+    <div class="stick">
+        粘性定位
+    </div>
+</body>
+<style>
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    html,body{
+        width: 100%;
+        height:3000px;
+    }
+    .relative{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        position: relative;
+        left: 10px;
+    }
+    .absolute-1{
+        width: 500px;
+        height: 500px;
+        margin: 0px auto;
+        background-color: blue;
+        position: relative;
+    }
+    .absolute-2{
+        width: 250px;
+        height: 250px;
+        margin: 0px auto;
+        background-color: green;
+    }
+    .absolute-3{
+        width: 125px;
+        height: 125px;
+        margin: 0px auto;
+        background-color: red;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+    .stick{
+        width: 100px;
+        height: 100px;
+        background-color: black;
+        position: sticky;
+        top: 20px;
+    }
+</style>
+</html>
