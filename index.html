@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    img{
+        width: 15px;
+        height: 15px;
+    }
+</style>
+<body>
+    <div class="container">
+        <table>
+            <tr>
+                <th class="rotateImage">今年来 <img class="img" src="箭头.png" alt=""></th>
+                <th>近两年</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+            </tr>
+        </table>
+    </div>
+</body>
+<script>
+    var rotateContainer = document.getElementsByClassName('rotateImage')[0];
+    var img = document.getElementsByClassName('img')[0];
+    isRotate = false;
+    rotateContainer.addEventListener('click',function(){
+        isRotate = !isRotate;
+        if(isRotate){
+            img.style.transform = "rotate(180deg)"
+        }else{
+            img.style.transform = "rotate(0deg)"
+        }
+    })
+</script>
+</html>
