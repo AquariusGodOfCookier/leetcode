@@ -50,13 +50,13 @@ Array.prototype._concat = function(){
 
 var nums = [[2]];
 var nums2 = [1,2,3,4,5];
-console.log(nums2._copyWithin(0,4,5));
+// console.log(nums2._copyWithin(0,4,5));
 // console.log(nums._concat(1,nums2))
 // nums._push(2);
 // console.log(nums)
 // console.log(nums._pop())
 // console.log(nums);
-// nums._unshift(1,3);
-// console.log(nums)
-// console.log(nums.shift())
-// console.log(nums)
+nums2._unshift(1,3);
+console.log(nums2)
+console.log(nums2.shift())
+console.log(nums2)
