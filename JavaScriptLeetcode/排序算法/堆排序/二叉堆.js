@@ -70,6 +70,7 @@ var num = [3,15,2,8,12,5,2,3,4,7];
 var buildHeap = new Heap(num);
 console.log(buildHeap)
 buildHeap.rebuildHeap();
-console.log(buildHeap);
-buildHeap.sort();
-console.log(buildHeap);
+console.log(buildHeap)
+// console.log(buildHeap);
+// buildHeap.sort();
+// console.log(buildHeap);
